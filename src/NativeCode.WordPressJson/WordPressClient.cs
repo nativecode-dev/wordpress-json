@@ -19,6 +19,23 @@
 
         public Uri Site { get; private set; }
 
+        public async Task<IReadOnlyList<Post>> GetAllPostsAsync()
+        {
+            var results = await this.GetPostsAsync();
+            var posts = new List<Post>(results.Count);
+
+            posts.AddRange(results.Posts);
+
+            while (posts.Count < results.Count)
+            {
+                var query = new PostQuery { Offset = posts.Count };
+                results = await this.GetPostsAsync(query);
+                posts.AddRange(results.Posts);
+            }
+
+            return posts;
+        }
+
         public Task<PostResults> GetPostsAsync()
         {
             return this.GetPostsAsync(new PostQuery());
@@ -51,16 +68,24 @@
             return JsonConvert.DeserializeObject<T>(content);
         }
 
-        private Uri BuildUrl(string path, IReadOnlyDictionary<string, string> parameters = null)
+        private Uri BuildUrl(string relativePath, IReadOnlyDictionary<string, string> parameters = null)
         {
-            var builder = new UriBuilder(this.BaseAddress.Scheme, this.BaseAddress.Host, this.BaseAddress.Port, this.BaseAddress.AbsolutePath);
+            var query = string.Empty;
 
             if (parameters != null && parameters.Any())
             {
-                builder.Query = "?" + parameters.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value)).ToList();
+                var @params = parameters.Select(kvp => string.Format("{0}={1}", kvp.Key, kvp.Value));
+                query = string.Join("&", @params);
             }
 
-            return new Uri(builder.Uri, path);
+            var scheme = this.BaseAddress.Scheme;
+            var host = this.BaseAddress.Host;
+            var port = this.BaseAddress.Port;
+            var path = this.BaseAddress.AbsolutePath + relativePath;
+
+            var builder = new UriBuilder(scheme, host, port, path) { Query = query };
+
+            return builder.Uri;
         }
     }
 }

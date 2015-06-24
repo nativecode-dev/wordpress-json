@@ -35,5 +35,19 @@
                 Assert.Greater(posts.Count, 0);
             }
         }
+
+        [Test]
+        public async Task ShouldReturnAllSitePosts()
+        {
+            // Arrange
+            using (var client = this.ClientFactory.CreateClient(TestSite))
+            {
+                // Act
+                var posts = await client.GetAllPostsAsync();
+
+                // Assert
+                Assert.Greater(posts.Count, 0);
+            }
+        }
     }
 }

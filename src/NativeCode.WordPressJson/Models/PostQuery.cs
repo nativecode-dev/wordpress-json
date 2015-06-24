@@ -17,6 +17,8 @@
 
         public int? MaxPosts { get; set; }
 
+        public int? Offset { get; set; }
+
         public string PageHandle { get; set; }
 
         public PostStatus? Status { get; set; }
@@ -38,6 +40,11 @@
             if (this.MaxPosts.HasValue)
             {
                 parameters.Add("number", this.MaxPosts.Value.ToString());
+            }
+
+            if (this.Offset.HasValue)
+            {
+                parameters.Add("offset", this.Offset.Value.ToString());
             }
 
             if (!string.IsNullOrWhiteSpace(this.PageHandle))
