@@ -4,7 +4,7 @@
 
     public abstract class Testing
     {
-        protected static readonly Uri TestSite = new Uri("https://www.secretlifeof.net");
+        protected static readonly Uri TestSite = new Uri("http://www.doubtlessfaith.com/");
 
         protected Testing()
         {

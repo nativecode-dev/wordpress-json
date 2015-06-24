@@ -14,6 +14,8 @@
 
         Task<PostResults> GetPostsAsync();
 
+        Task<PostResults> GetPostsAsync(PostQuery query);
+
         Task<Site> GetSiteAsync();
     }
 }

@@ -48,8 +48,10 @@
     <Compile Include="Models\Logo.cs" />
     <Compile Include="Models\Meta.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostQuery.cs" />
     <Compile Include="Models\PostResults.cs" />
     <Compile Include="Models\PostResultsMeta.cs" />
+    <Compile Include="Models\PostStatus.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordPressClient.cs" />

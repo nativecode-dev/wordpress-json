@@ -20,6 +20,7 @@
             {
                 client.BaseAddress = WordPressRestServiceUrl;
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/json"));
 
                 return client;
             }

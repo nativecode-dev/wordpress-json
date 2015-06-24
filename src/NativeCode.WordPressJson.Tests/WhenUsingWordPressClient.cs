@@ -1,5 +1,6 @@
 ﻿namespace NativeCode.WordPressJson.Tests
 {
+    using System;
     using System.Threading.Tasks;
 
     using NUnit.Framework;
@@ -17,7 +18,7 @@
                 var site = await client.GetSiteAsync();
 
                 // Assert
-                Assert.AreEqual("http://www.secretlifeof.net", site.Url);
+                Assert.AreEqual(TestSite.AbsoluteUri, new Uri(site.Url).AbsoluteUri);
             }
         }
 
